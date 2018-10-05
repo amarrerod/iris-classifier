@@ -11,7 +11,9 @@ class Test_Classifier(unittest.TestCase):
         self.x = self.iris.data
         self.y = self.iris.target
         self.neighbors = 1
-    
+        self.classifier.train()
+        self.classifier.predict(self.x)
+
     def test_shape_data(self):
         self.assertEqual(self.x.shape,  self.classifier.x.shape)
     
@@ -26,3 +28,10 @@ class Test_Classifier(unittest.TestCase):
 
     def test_classifer_has_train_method(self):
         self.assertTrue(self.classifier.train)
+    
+    def test_predict_labels(self):
+        self.assertTrue(self.classifier.predict)
+
+    def test_training_score_equals_one(self):
+        value = self.classifier.score(self.classifier.y)
+        self.assertAlmostEqual(value, 1.0)
