@@ -6,6 +6,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection._validation import cross_val_score
+from sklearn.model_selection._split import LeaveOneOut
 
 class Test_Classifier(unittest.TestCase):
     def setUp(self):
@@ -66,3 +67,11 @@ class Test_Classifier(unittest.TestCase):
         returned = self.classifier.cross_validation(5)
         for i in range(5):
             self.assertEqual(expected[i], returned[i])
+
+    def test_cross_validation_leave_one_out(self):
+        model = KNeighborsClassifier(n_neighbors = self.neighbors)
+        expected = cross_val_score(model, self.x, self.y, 
+        cv = LeaveOneOut())
+        returned = self.classifier.cross_validation_leave_one()
+        self.assertAlmostEqual(expected.mean(), returned.mean())
+        

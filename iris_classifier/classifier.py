@@ -5,6 +5,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection._validation import cross_val_score
+from sklearn.model_selection._split import LeaveOneOut
 
 class KNN:
     def __init__(self, dataset, x1 = None, x2 = None, y1 = None, y2 = None, cross_validation = True, folds = 0):
@@ -44,3 +45,6 @@ class KNN:
             return [accuracy_score(self.y1, y1_model), accuracy_score(self.y2, y2_model)]
         else:
             return cross_val_score(self.model, self.x, self.y, cv = folds)
+    
+    def cross_validation_leave_one(self):
+        return cross_val_score(self.model, self.x, self.y, cv = LeaveOneOut())
