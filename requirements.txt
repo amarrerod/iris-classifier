@@ -1,3 +1,5 @@
-matplotlib
-seaborn
-scikit
+coverage==4.5.1
+matplotlib==3.0.0
+numpy==1.15.2
+scikit-learn==0.20.0
+scipy==1.1.0
