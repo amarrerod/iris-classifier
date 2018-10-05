@@ -14,5 +14,5 @@ script:
   - python setup.py install
   - coverage run -m unittest discover ./tests/
   - coverage html
-  - mv htmlcov/* docs
+  - mv htmlcov/* docs/
   - rmdir htmlcov
