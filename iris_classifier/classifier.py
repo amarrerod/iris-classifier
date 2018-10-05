@@ -8,3 +8,5 @@ class KNN:
         self.data = dataset
         self.x = dataset.data
         self.y = dataset.target
+        self.neighbors = 1
+        self.model = KNeighborsClassifier(n_neighbors = self.neighbors)

@@ -2,6 +2,7 @@
 import unittest
 from sklearn.datasets import load_iris
 from iris_classifier.classifier import KNN
+from sklearn.neighbors import KNeighborsClassifier
 
 class Test_Classifier(unittest.TestCase):
     def setUp(self):
@@ -19,3 +20,6 @@ class Test_Classifier(unittest.TestCase):
 
     def test_neighbors(self):
         self.assertEqual(self.neighbors, self.classifier.neighbors)
+    
+    def test_KNN(self):
+        self.assertIsInstance(self.classifier.model, KNeighborsClassifier)
