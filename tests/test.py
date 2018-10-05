@@ -23,3 +23,6 @@ class Test_Classifier(unittest.TestCase):
     
     def test_KNN(self):
         self.assertIsInstance(self.classifier.model, KNeighborsClassifier)
+
+    def test_classifer_has_train_method(self):
+        self.assertTrue(self.classifier.train)
