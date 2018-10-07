@@ -15,12 +15,12 @@ class Test_Classifier(unittest.TestCase):
         self.y = self.iris.target
         self.x1, self.x2, self.y1, self.y2 = train_test_split(self.x, self.y, random_state = 0, train_size = 0.5)
         self.neighbors = 1
-        self.classifier = KNN(self.iris, self.x1, self.x2, self.y1, self.y2, cross_validation = False, folds = 1)
+        self.classifier = KNN(self.iris, self.neighbors, self.x1, self.x2, self.y1, self.y2, cross_validation = False, folds = 1)
         self.classifier.train(self.x, self.y)
         self.classifier.predict(self.x)
 
     def test_classifier_has_folds(self):
-        model = KNN(self.iris, cross_validation = True, folds = 1)
+        model = KNN(self.iris, self.neighbors, cross_validation = True, folds = 1)
         self.assertEqual(model.folds, 1)
     
     def test_shape_data(self):
@@ -69,6 +69,7 @@ class Test_Classifier(unittest.TestCase):
         model = KNeighborsClassifier(n_neighbors = self.neighbors)
         expected = cross_val_score(model, self.x, self.y, cv = 5)
         returned = self.classifier.cross_validation(5)
+        print(returned)
         for i in range(5):
             self.assertEqual(expected[i], returned[i])
 
@@ -78,4 +79,6 @@ class Test_Classifier(unittest.TestCase):
         cv = LeaveOneOut())
         returned = self.classifier.cross_validation_leave_one()
         self.assertAlmostEqual(expected.mean(), returned.mean())
-        
+    
+    def test_validate_model(self):
+        self.assertTrue(self.classifier.validate())

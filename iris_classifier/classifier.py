@@ -1,14 +1,16 @@
 
 
 import numpy as np
+import matplotlib.pyplot as plt
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection._validation import cross_val_score
 from sklearn.model_selection._split import LeaveOneOut
+from sklearn.model_selection import validation_curve
 
 class KNN:
-    def __init__(self, dataset, x1 = None, x2 = None, y1 = None, y2 = None, cross_validation = True, folds = 0):
+    def __init__(self, dataset, neighbors, x1 = None, x2 = None, y1 = None, y2 = None, cross_validation = True, folds = 0):
         self.data = dataset
         self.x = dataset.data
         self.y = dataset.target
@@ -17,7 +19,7 @@ class KNN:
             self.split_data()
         else:
             self.folds = folds
-        self.neighbors = 1
+        self.neighbors = neighbors if neighbors is not None else 1
         self.model = KNeighborsClassifier(n_neighbors = self.neighbors)
     
     def split_data(self):
@@ -48,3 +50,15 @@ class KNN:
     
     def cross_validation_leave_one(self):
         return cross_val_score(self.model, self.x, self.y, cv = LeaveOneOut())
+    
+    def validate(self):
+        neighbors = np.arange(1, 10)
+        train_score, val_score = validation_curve(self.model, self.x, self.y, 'n_neighbors', neighbors, cv = 5)
+        plt.plot(neighbors, np.median(train_score, 1), color = 'blue', label = 'training score')
+        plt.plot(neighbors, np.median(val_score, 1), color = 'red', label = 'validation score')
+        plt.ylim(0, 1)
+        plt.xlabel('neighbors')
+        plt.ylabel('score')
+        plt.legend(loc = 'best')
+        plt.show()
+        return True
