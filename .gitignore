@@ -1,3 +1,4 @@
 iris_classifier.egg-info/
 *.pyc
 .eggs/
+coverage.xml
