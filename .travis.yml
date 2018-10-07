@@ -14,4 +14,5 @@ script:
   - python setup.py install
   - coverage run -m unittest discover ./tests/
 after_sucess:
-  - COVERALLS_REPO_TOKEN=L9ROtMiJ6vozipjPgBBK4KGbngOh0PB0s coveralls
+  - coveralls
+  - codecov
