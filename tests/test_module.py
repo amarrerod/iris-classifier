@@ -72,3 +72,13 @@ class Test_Classifier(unittest.TestCase):
         print(returned)
         for i in range(5):
             self.assertEqual(expected[i], returned[i])
+
+    def test_cross_validation_leave_one_out(self):
+        model = KNeighborsClassifier(n_neighbors = self.neighbors)
+        expected = cross_val_score(model, self.x, self.y, 
+        cv = LeaveOneOut())
+        returned = self.classifier.cross_validation_leave_one()
+        self.assertAlmostEqual(expected.mean(), returned.mean())
+    
+    def test_validate_model(self):
+        self.assertTrue(self.classifier.validate())
