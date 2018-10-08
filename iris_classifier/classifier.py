@@ -21,7 +21,7 @@ class KNN:
             self.folds = folds
         self.neighbors = neighbors if neighbors is not None else 1
         self.model = KNeighborsClassifier(n_neighbors = self.neighbors)
-    
+        
     def split_data(self):
         self.x1, self.x2, self.y1, self.y2 = train_test_split(self.x, self.y, random_state = 0, train_size = 0.5)
     

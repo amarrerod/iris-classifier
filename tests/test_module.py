@@ -22,7 +22,7 @@ class Test_Classifier(unittest.TestCase):
     def test_classifier_has_folds(self):
         model = KNN(self.iris, self.neighbors, cross_validation = True, folds = 1)
         self.assertEqual(model.folds, 1)
-    
+
     def test_shape_data(self):
         self.assertEqual(self.x.shape,  self.classifier.x.shape)
     
@@ -75,8 +75,7 @@ class Test_Classifier(unittest.TestCase):
 
     def test_cross_validation_leave_one_out(self):
         model = KNeighborsClassifier(n_neighbors = self.neighbors)
-        expected = cross_val_score(model, self.x, self.y, 
-        cv = LeaveOneOut())
+        expected = cross_val_score(model, self.x, self.y, cv = LeaveOneOut())
         returned = self.classifier.cross_validation_leave_one()
         self.assertAlmostEqual(expected.mean(), returned.mean())
     
