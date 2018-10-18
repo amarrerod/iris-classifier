@@ -25,26 +25,26 @@ class Test_Classifier(unittest.TestCase):
 
     def test_shape_data(self):
         self.assertEqual(self.x.shape,  self.classifier.x.shape)
-    
+        
     def test_shape_taget(self):
         self.assertEqual(self.y.shape, self.classifier.y.shape)
 
     def test_neighbors(self):
         self.assertEqual(self.neighbors, self.classifier.neighbors)
-    
+
     def test_KNN(self):
         self.assertIsInstance(self.classifier.model, KNeighborsClassifier)
 
     def test_classifer_has_train_method(self):
         self.assertTrue(self.classifier.train)
-    
+
     def test_predict_labels(self):
         self.assertTrue(self.classifier.predict)
 
     def test_training_score_equals_one(self):
         value = self.classifier.score(self.classifier.y)
         self.assertAlmostEqual(value, 1.0)
-    
+
     def test_has_two_sets(self):
         self.assertEqual(self.x2.shape, self.classifier.x2.shape)
 
@@ -56,7 +56,7 @@ class Test_Classifier(unittest.TestCase):
         y_model = self.classifier.model.predict(self.x2)
         expected = accuracy_score(self.y2, y_model)
         self.assertEqual(expected, self.classifier.holdout_validation())
-    
+
     def test_cross_validation(self):
         y2_model = self.classifier.model.fit(self.x1, self.y1).predict(self.x2)
         y1_model = self.classifier.model.fit(self.x2, self.y2).predict(self.x1)
@@ -78,6 +78,6 @@ class Test_Classifier(unittest.TestCase):
         expected = cross_val_score(model, self.x, self.y, cv = LeaveOneOut())
         returned = self.classifier.cross_validation_leave_one()
         self.assertAlmostEqual(expected.mean(), returned.mean())
-    
+
     def test_validate_model(self):
         self.assertTrue(self.classifier.validate())

@@ -24,17 +24,17 @@ class KNN:
         
     def split_data(self):
         self.x1, self.x2, self.y1, self.y2 = train_test_split(self.x, self.y, random_state = 0, train_size = 0.5)
-    
+
     def train(self, x = None, y = None):
         self.model.fit(x, y)
-    
+
     def predict(self, target):
         self.y_model = self.model.predict(target)
         return self.y_model
-        
+
     def score(self, target):
         return accuracy_score(target, self.y_model)
-    
+
     def holdout_validation(self):
         self.train(self.x1, self.y1)
         self.y2_model = self.model.predict(self.x2)
@@ -47,10 +47,10 @@ class KNN:
             return [accuracy_score(self.y1, y1_model), accuracy_score(self.y2, y2_model)]
         else:
             return cross_val_score(self.model, self.x, self.y, cv = folds)
-    
+
     def cross_validation_leave_one(self):
         return cross_val_score(self.model, self.x, self.y, cv = LeaveOneOut())
-    
+
     def validate(self):
         neighbors = np.arange(1, 10)
         train_score, val_score = validation_curve(self.model, self.x, self.y, 'n_neighbors', neighbors, cv = 5)
